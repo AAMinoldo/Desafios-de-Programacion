@@ -1,0 +1,155 @@
+# doy vuelta los numeros usando una lista
+numeros = []
+a = int(input("agrear numeros: "))
+b = int(input("nro dos: "))
+c = int(input("nro tres: "))
+numeros.append(a)
+numeros.append(b)
+numeros.append(c)
+print(numeros[::-1])
+
+#--------------------------------------------------------------------------------
+
+numero = int(input("Ingresar un numero de tres digitos: "))
+print()#linea de espacio
+numero = str(numero)#lo paso a string para poder medir el largo
+largoN = len(numero)
+
+# bandera - para cortar en el segundo intento, sin la bandera, solicita indefinidamente ingrese nro
+intentos = 0 #miestras el largo sea distinto a 3 suma intentos
+while largoN != 3:
+    largoN = 0
+    print("El valor ingresado es incorrecto")
+
+    if intentos == 2:
+        print("Has consumido todo los intetos")
+        break
+
+    numero = int(input("Ingresar un numero de tres digitos: "))
+    numero = str(numero)#los paso a string para medir el largo
+    largoN = len(numero)
+    if largoN != 3:
+        intentos = intentos + 1
+
+if largoN == 3:
+    numero = int(str(numero)[::-1])
+    print(f"el nro invertido es: {numero}, el largo es de: {largoN}")
+
+print("El programa sigue...")
+
+#-----------------------------------------------------------------------------------
+#mejorado - miemtras intentos < 3 entra en el ciclo, sino else "Has consumido..."
+# intentos = 0 #bandera
+#
+while intentos < 3:
+    numero = input("Ingrese un número de tres dígitos: ")
+    if len(numero) != 3 or not numero.isdigit():#Devuelve Verdadero si la cadena es una cadena de dígitos
+        print("El valor ingresado es incorrecto.")
+        intentos += 1
+    else:
+        numero = int(numero)
+        numero_invertido = int(str(numero)[::-1])
+        print(f"El número invertido es: {numero_invertido}, el largo es: {len(str(numero_invertido))}")
+        break
+else:
+    print("Has consumido todos los intentos.")
+
+print("El programa sigue...")
+
+# ------------------------------------
+
+import re
+from datetime import datetime, timedelta
+
+# Función para verificar el formato de la hora
+def verificar_formato_hora(hora):
+    patron = re.compile(r'^([01]?[0-9]|2[0-3]):[0-5][0-9]$')
+    return bool(patron.match(hora))
+
+# Solicitar la hora actual al usuario
+while True:
+    hora_actual = input("Por favor, ingrese la hora actual (en formato HH:MM): ")
+    if verificar_formato_hora(hora_actual):
+        break
+    else:
+        print("El formato de la hora es inválido. Por favor, utilice el formato HH:MM.")
+
+# Solicitar la cantidad de horas a sumar
+while True:
+    try:
+        horas_a_sumar = int(input("Por favor, ingrese la cantidad de horas a sumar: "))
+        break
+    except ValueError:
+        print("Por favor, ingrese un número entero válido.")
+
+# Convertir la hora actual a objeto datetime
+hora_actual_dt = datetime.strptime(hora_actual, "%H:%M")
+
+# Sumar las horas especificadas
+nueva_hora_dt = hora_actual_dt + timedelta(hours=horas_a_sumar)
+
+# Imprimir la nueva hora
+print("La hora después de sumar {} horas es: {}".format(horas_a_sumar, nueva_hora_dt.strftime("%H:%M%H:%M")))
+
+#----------------------------------------------------------------------------------------------------------------
+"""Escribir un programa que pida al usuario un número entero y muestre por pantalla si
+es un número primo o no."""
+
+#funcion para saber si un numero es entero o no lo es
+def es_entero(num):
+    if isinstance(num, int) or num.is_integer():
+        return True
+    else:
+        return False
+
+numero = int(input("Por favor ingrese un numero entero: "))
+primo = 0 #bandera
+
+for n in range(1, numero + 1):
+    valor = numero /n
+
+    if es_entero(valor) == True:#solo con este if puedo saber si es primo
+        primo += 1
+
+    if numero == 1:#cuando llega al nro 1 sale
+        break
+
+if primo == 2:
+    print(f"Este es un numero primo: {numero}")
+else:
+    print(f"El Numero {numero} No es Primo")
+
+#-------------------Calular el tiempo de un viaje por tramos------------------------------------------
+#el usuario ingresara los minutos que le llevo realizar un tramo, cuando ponga 0 calculara el tiempo
+
+print("Programa que calcula tiempo de viaje")
+
+sumaTiempo = 0 #inicializar la var acumulador para poder usarla en el while
+while True:
+        duracionTramo = int(input("Ingrese el tiempo que demoro para hacer un tramo nuevo: "))
+
+        sumaTiempo += duracionTramo #uso un acumulador, defino afuera la var
+
+        if duracionTramo == 0:
+            break
+
+horas = sumaTiempo // 60 #division entera para calcular horas
+minutos = sumaTiempo % 60 #mudulo de sumaTiempo para los minutos
+print(f"Tiempo total del viaje: horas {horas} y {minutos} minutos")
+
+
+#--------------El programa informa si  los años son Bisiesto o no son, y se sale con nro 0------------
+while True:
+    numeroBiesto = int(input("Ingrese una fecha para saber si año es bisiesto: "))
+    if numeroBiesto == 0: #sale con el numero Cero
+        print("Salio del programa porque presiono la tecla Cero")
+        break
+
+    if numeroBiesto % 4 == 0 and numeroBiesto % 100 == 0: #calculo usando modulo(%) en los if
+        print(f"El año No es Bisiesto {numeroBiesto}")
+
+    if numeroBiesto % 4 != 0:
+        print(f"El ano No es Bisiesto {numeroBiesto}")
+
+    if numeroBiesto % 4 == 0 and numeroBiesto % 100 != 0:
+        print(f"El año Si es Bisiesto {numeroBiesto}")
